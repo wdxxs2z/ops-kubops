@@ -68,7 +68,7 @@ kubectl --kubeconfig=/var/vcap/jobs/kubeconfig/config/kubeconfig describe svc --
 ```
 部署一个nginx模板[nginx](https://github.com/pivotal-cf-experimental/kubo-deployment/blob/4f324f2ea7e10b615d842d9a68abc09e1b37f8ee/ci/specs/nginx.yml)
 ```
-kubectl --kubeconfig=/var/vcap/jobs/kubeconfig/config/kubeconfig kubectl create -f /tmp/nginx.yml
+kubectl --kubeconfig=/var/vcap/jobs/kubeconfig/config/kubeconfig create -f /tmp/nginx.yml
 ```
 通过nodeip:31000访问dashboard
 ![kubo-ui](https://github.com/wdxxs2z/ops-kubops/blob/master/ops/7.JPG)
