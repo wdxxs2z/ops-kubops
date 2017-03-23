@@ -24,7 +24,8 @@ uaac client add routing_api_client --authorities "routing.routes.write,routing.r
 
 2.平台开启tcp route支持，在DNS Server中，将kubernetes.yourdomain指向tcp router
 
-3.将制作好的bosh release封装成zip安装介质
+3.将制作好的bosh release封装成Ops Manager Zip安装介质，这里可能涉及不止kubo的release</br>
+* 目前项目的开源地址
 ```
 https://github.com/pivotal-cf-experimental/kubo-release
 ```
