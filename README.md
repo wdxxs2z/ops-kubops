@@ -33,22 +33,22 @@ https://github.com/pivotal-cf-experimental/kubo-release
 ![ops manager-upload](https://github.com/wdxxs2z/ops-kubops/blob/master/ops/o.JPG)
 
 5.配置kubernetes</br>
--- kubernetes api和kubelet 的密码手动填写，这里不使用平台自动生成策略。</br>
--- 生成TLS访问证书：填写泛域名 如 *.yourDomain，这里指定了kubernetes.yourDomain</br>
--- 填写刚才uaac注册的uaa 的 client id和密码 ：routing_api_client ，your client password</br>
--- 如果平台有自己的私有镜像库也可填写自己的镜像库</br>
--- 其它可配置参数目前没有释放，如果需要可以自己定制模板，将参数释放出来</br>
--- 支持多AZ部署</br>
+* kubernetes api和kubelet 的密码手动填写，这里不使用平台自动生成策略。</br>
+* 生成TLS访问证书：填写泛域名 如 *.yourDomain，这里指定了kubernetes.yourDomain</br>
+* 填写刚才uaac注册的uaa 的 client id和密码 ：routing_api_client ，your client password</br>
+* 如果平台有自己的私有镜像库也可填写自己的镜像库</br>
+* 其它可配置参数目前没有释放，如果需要可以自己定制模板，将参数释放出来</br>
+* 支持多AZ部署</br>
 ![ops manager-opts](https://github.com/wdxxs2z/ops-kubops/blob/master/ops/3.JPG)
 
 6.kubernetes的主要组件说明</br>
--- etcd:主要存储和管理flannel vxlan网络的配置信息，储存kubernetes的元数据</br>
--- kubernetes: v1.4.6的版本，在定制时，可选择不同版本定制</br>
--- docker: v1.11版本，如有特殊情况，可以自行定制</br>
--- nginx: 对kubernetes-dashboard负载</br>
--- kubernetes-api-route-registrar: 将kubernetes api的终端kubernetes.yourDomain:8443注册到tcp router上</br>
--- * metron agent：未来可将此组件纳入，接入ELK日志系统</br>
--- * grafana: 统一监控界面</br>
+* etcd:主要存储和管理flannel vxlan网络的配置信息，储存kubernetes的元数据</br>
+* kubernetes: v1.4.6的版本，在定制时，可选择不同版本定制</br>
+* docker: v1.11版本，如有特殊情况，可以自行定制</br>
+* nginx: 对kubernetes-dashboard负载</br>
+* kubernetes-api-route-registrar: 将kubernetes api的终端kubernetes.yourDomain:8443注册到tcp router上</br>
+* * metron agent：未来可将此组件纳入，接入ELK日志系统</br>
+* * grafana: 统一监控界面</br>
 
 7.添加errand支持kubernetes system-namespace service</br>
 系统服务在此errand统一部署，如ui,dns,heapster,influxdb等，目前这个版本需要自己封装errand，不支持errand模式(已经提交了issue),所以在官方的基础上，会稍微改变一下部署策略，添加对其的支持。</br>
