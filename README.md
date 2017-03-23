@@ -65,7 +65,7 @@ kubectl --kubeconfig=/var/vcap/jobs/kubeconfig/config/kubeconfig --all-namespace
 ```
 kubectl --kubeconfig=/var/vcap/jobs/kubeconfig/config/kubeconfig describe svc --all-namespaces=true
 ```
-部署一个nginx模板[kubo-ui](https://github.com/pivotal-cf-experimental/kubo-deployment/blob/4f324f2ea7e10b615d842d9a68abc09e1b37f8ee/ci/specs/nginx.yml)
+部署一个nginx模板[nginx](https://github.com/pivotal-cf-experimental/kubo-deployment/blob/4f324f2ea7e10b615d842d9a68abc09e1b37f8ee/ci/specs/nginx.yml)
 ```
 kubectl --kubeconfig=/var/vcap/jobs/kubeconfig/config/kubeconfig kubectl create -f /tmp/nginx.yml
 ```
