@@ -11,7 +11,7 @@ Bosh是新一代分布式部署平台，在其上Bosh通过CPI将我们需要部
 #### 部署kubo之前，看下官方的架构：
 ![kubo deployment](https://github.com/pivotal-cf-experimental/kubo-deployment/raw/master/docs/images/kubo-network.png)
 
-从官方解释看，此项目还只是一个合作孵化项目，route-api的功能还没有释放出来，只是在其上注册了tcp router接管了kubernetes api访问终端，由于内部使用TLS证书，所以不同通过页面直接访问dashboard ui，对于kubectl的操作也相对复杂一些。至于一些周边功能，如日志，监控等还需要自己集成，就不要直接封装到kubo里了，另外打出release，组合部署。
+从官方解释看，此项目还只是一个合作孵化项目，route-api的功能还没有释放出来，只是在其上注册了tcp router接管了kubernetes api访问终端，由于内部使用TLS证书，所以不同通过kubernetes api终端url直接访问dashboard ui，对于kubectl的操作也相对复杂一些。至于一些周边功能，如日志，监控等还需要自己集成，就不要直接封装到kubo里了，另外打出release，组合部署。
 
 #### 部署步骤：
 
