@@ -73,5 +73,18 @@ kubectl --kubeconfig=/var/vcap/jobs/kubeconfig/config/kubeconfig create -f /tmp/
 通过nodeip:31000访问dashboard
 ![kubo-ui](https://github.com/wdxxs2z/ops-kubops/blob/master/ops/7.JPG)
 
+10.部署grafana监控服务,此块服务也可直接放到errand里执行</br>
+```
+./kubectl --kubeconfig=/var/vcap/jobs/kubeconfig/config/kcreate -f /tmp/grafana.yml
+```
+* 查看grafana详情</br>
+![kubo-gs](https://github.com/wdxxs2z/ops-kubops/blob/master/ops/8.JPG)</br>
+* 进入节点查看监控指标.</br>
+![kubo-ga](https://github.com/wdxxs2z/ops-kubops/blob/master/ops/9.JPG)</br>
+* 集群指标.</br>
+![kubo-gb](https://github.com/wdxxs2z/ops-kubops/blob/master/ops/10.JPG)</br>
+* pod指标.</br>
+![kubo-gc](https://github.com/wdxxs2z/ops-kubops/blob/master/ops/11.JPG)</br>
+
 ##### 后续
 还有一些路由功能，目前我个人还在研究，估计官方在这方面的速度可能会快一些。
