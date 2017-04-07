@@ -86,5 +86,61 @@ kubectl --kubeconfig=/var/vcap/jobs/kubeconfig/config/kubeconfig create -f /tmp/
 * pod指标.</br>
 ![kubo-gc](https://github.com/wdxxs2z/ops-kubops/blob/master/ops/11.JPG)</br>
 
+#### 关于路由注册 
+
+* 目前官方已完成路由发现部分的设计，包括tcp和http都涵盖在内，具体设计如下(个人理解)：
+![kubo-gy](https://github.com/wdxxs2z/ops-kubops/blob/master/ops/ks-router.JPG)</br>
+
+* TCP：可以看出tcp是直接通过**route api**联合**uaa**将k8s内被打了标签**tcp-route-sync**的services注册进tcp route,用户可以直接用tcp-route的IP：service_lable_port访问。
+
+* HTTP：http是通过**nats**将k8s内被打了标签**http-route-sync**的services注册进gorouter，用户可以直接用service_lable_hostname加上cf的域名进行访问。
+
+* CTX：持续对k8s所有namespaces内的services进行扫描
+
+* 举个栗子，以nginx为实验对象，以暴露http的方式给cf
+```
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    name: nginx
+    http-route-sync: nginx  #http 则指定host名 -> gorouter
+    #tcp-route-sync: 34567 #tcp 则指定端口 -> tcp router
+  name: nginx
+spec:
+  ports:
+    - port: 80
+  selector:
+    app: nginx
+  type: NodePort
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: nginx
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: hub.c.163.com/library/nginx:latest
+        ports:
+        - containerPort: 80
+```
+* 执行创建</br>
+./kubectl --kubeconfig=..... create -f /tmp/nginx.yml </br>
+* 查看dashboard,观察nginx服务的标签</br>
+![kubo-gl](https://github.com/wdxxs2z/ops-kubops/blob/master/ops/12.png)</br>
+* 查看路由注册组件,观察日志</br>
+![kubo-gk](https://github.com/wdxxs2z/ops-kubops/blob/master/ops/13.png)</br>
+* 直接访问应用域名,一切正常</br>
+![kubo-gh](https://github.com/wdxxs2z/ops-kubops/blob/master/ops/14.png)</br>
+* 查看gorouter路由表</br>
+![kubo-gf](https://github.com/wdxxs2z/ops-kubops/blob/master/ops/15.JPG)</br>
+
 ##### 后续
-还有一些路由功能，目前我个人还在研究，估计官方在这方面的速度可能会快一些。
+从目前的计划看，官方会持续集成日志，对接cf的metron agent。
