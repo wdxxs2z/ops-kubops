@@ -147,4 +147,5 @@ spec:
 ##### 后续
 1. 官方会持续集成日志，对接cf的metron agent
 2. 解决定时清理k8s集群长时间不用的images
-3. 集成UAA，完成多租户下的kubernetes namespace的管理设计
+3. 集成UAA，完成多租户下的kubernetes namespace的权限管理设计
+4. 提供持久化存储服务
