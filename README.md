@@ -86,6 +86,16 @@ kubectl --kubeconfig=/var/vcap/jobs/kubeconfig/config/kubeconfig create -f /tmp/
 * pod指标.</br>
 ![kubo-gc](https://github.com/wdxxs2z/ops-kubops/blob/master/ops/11.JPG)</br>
 
+#### 关于kubernetes的操作
+
+* 首先下载针对不同平台的kubectl客户端到本地，比如我的是windows，则可以到[kubectl-windows](https://github.com/eirslett/kubectl-windows/releases/download/v1.5.0/kubectl.exe)去下载
+
+* 到kube master的虚机上，拷贝kubeconfig的配置属性文件(ca.pem,kubeconfig)，将这些文件统一放到windows下的某个目录里
+
+* 修改kubeconfig文件种ca.pem文件的位置
+
+* 测试命令如：kubectl --kubeconfig=c:\kube\kubeconfig --all-namespaces=true get po
+
 #### 关于路由注册 
 
 * 目前官方已完成路由发现部分的设计，包括tcp和http都涵盖在内，具体设计如下(个人理解)：
