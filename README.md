@@ -6,7 +6,7 @@
 
 Bosh是新一代分布式部署平台，在其上Bosh通过CPI将我们需要部署的软件自动分发部署到IaaS平台上。目前bosh已经来到2.0，最近官方重写了bosh客户端，基本能做到本地打包到处复用，云上部署，云上调试。Bosh提供了通用的stemcell将操作系统封装，本质上还是希望运维人员能在其之上快速部署基础组件，淡化OS概念。</br>
 
-目前已经有很多厂商在其上做了自动化封装，最近比较火的kubo也是如此，kubo是google和pivotal工程师一起协作开源的自动化项目,目的在于将kubernetes直接部署到谷歌云的Bosh环境里，后续可能在其上封装kubernetes service broker，不过目前kube有个孵化项目[service-catalog](https://github.com/kubernetes-incubator/service-catalog)，意义在于将应用和服务分离，形成一个open service broker api业界标准。
+> 目前已经有很多厂商在其上做了自动化封装，最近比较火的kubo也是如此，kubo是google和pivotal工程师一起协作开源的自动化项目,目的在于将kubernetes直接部署到谷歌云的Bosh环境里，后续可能在其上封装kubernetes service broker，不过目前kube有个孵化项目[service-catalog](https://github.com/kubernetes-incubator/service-catalog)，意义在于将应用和服务分离，形成一个open service broker api业界标准。
 
 #### 部署kubo之前，看下官方的架构：
 ![kubo deployment](https://github.com/pivotal-cf-experimental/kubo-deployment/raw/master/docs/images/kubo-network.png)
@@ -107,7 +107,7 @@ metadata:
   labels:
     name: nginx
     http-route-sync: nginx  #http 则指定host名 -> gorouter
-    #tcp-route-sync: 34567 #tcp 则指定端口 -> tcp router
+    #tcp-route-sync: '34567' #tcp 则指定端口 -> tcp router
   name: nginx
 spec:
   ports:
@@ -145,4 +145,6 @@ spec:
 ![kubo-gf](https://github.com/wdxxs2z/ops-kubops/blob/master/ops/15.JPG)</br>
 
 ##### 后续
-从目前的计划看，官方会持续集成日志，对接cf的metron agent。
+1. 官方会持续集成日志，对接cf的metron agent
+2. 解决定时清理k8s集群长时间不用的images
+3. 集成UAA，完成多租户下的kubernetes namespace的管理设计
