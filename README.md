@@ -99,7 +99,7 @@ kubectl --kubeconfig=/var/vcap/jobs/kubeconfig/config/kubeconfig create -f /tmp/
 #### 关于路由注册 
 
 * 目前官方已完成路由发现部分的设计，包括tcp和http都涵盖在内，具体设计如下(个人理解)：
-![kubo-gy](https://github.com/wdxxs2z/ops-kubops/blob/master/ops/ks-router.JPG)</br>
+![kubo-gy](https://github.com/wdxxs2z/ops-kubops/blob/master/ops/kus-router.JPG)</br>
 
 * TCP：可以看出tcp是直接通过`route api`联合`uaa`将kubernetes内被打了标签`tcp-route-sync`的services注册进tcp route,用户可以直接用tcp-route的IP：service_lable_port访问。
 
