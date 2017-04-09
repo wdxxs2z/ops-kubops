@@ -86,6 +86,10 @@ kubectl --kubeconfig=/var/vcap/jobs/kubeconfig/config/kubeconfig create -f /tmp/
 * pod指标.</br>
 ![kubo-gc](https://github.com/wdxxs2z/ops-kubops/blob/master/ops/11.JPG)</br>
 
+#### 关于powerdns
+
+由于bosh的高度自动化，kubo将kubelet节点名按照`spec.id`全部自动写入powerdns job: xxxxx-xxxxx-id(hostname) -> kubelet_ip,但是如果我们有自己的dns服务器，目前的做法是将`spec.id`改为`spec.network`,这样类似kubectl logs/exec就不会出错了
+
 #### 关于kubernetes的操作
 
 * 首先下载针对不同平台的kubectl客户端到本地，比如我的是windows，则可以到[kubectl-windows](https://github.com/eirslett/kubectl-windows/releases/download/v1.5.0/kubectl.exe)去下载
