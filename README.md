@@ -8,6 +8,7 @@ Bosh是新一代分布式部署平台，在其上Bosh通过CPI将我们需要部
 
 > 目前已经有很多厂商在其上做了自动化封装，最近比较火的kubo也是如此，kubo是google和pivotal工程师一起协作开源的自动化项目,目的在于将kubernetes直接部署到谷歌云的Bosh环境里，后续可能在其上封装kubernetes service broker，不过目前kube有个孵化项目[service-catalog](https://github.com/kubernetes-incubator/service-catalog)，意义在于将应用和服务分离，形成一个open service broker api业界标准。
 
+
 #### 部署kubo之前，看下官方的架构：
 ![kubo deployment](https://github.com/pivotal-cf-experimental/kubo-deployment/raw/master/docs/images/kubo-network.png)
 
@@ -44,8 +45,8 @@ https://github.com/pivotal-cf-experimental/kubo-release
 
 6.kubernetes的主要组件说明</br>
 * etcd:主要存储和管理flannel vxlan网络的配置信息，储存kubernetes的元数据</br>
-* kubernetes: v1.4.6的版本，在定制时，可选择不同版本定制</br>
-* docker: v1.11版本，如有特殊情况，可以自行定制</br>
+* kubernetes: `v1.4.6`的版本，在定制时，可选择不同版本定制。目前官方正在测试1.6，kubernetes1.6版本较之前版本改动较大，比如在KubeDNS就引入了external dns，方便第三方外部DNS接入</br>
+* docker: `v1.11`版本，如有特殊情况，可以自行定制</br>
 * nginx: 对kubernetes-dashboard负载</br>
 * kubernetes-api-route-registrar: 将kubernetes api的终端kubernetes.yourDomain:8443注册到tcp router上</br>
 * * metron agent：未来可将此组件纳入，接入ELK日志系统</br>
@@ -128,7 +129,7 @@ spec:
     - port: 80
   selector:
     app: nginx
-  type: NodePort
+  type: NodePort #必须指定服务端口类型为`nodeport`
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
