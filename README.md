@@ -112,9 +112,11 @@ kubectl --kubeconfig=/var/vcap/jobs/kubeconfig/config/kubeconfig create -f /tmp/
 
 * CTX：持续对k8s所有namespaces内的services进行扫描
 
-***
+#### 用例
 
-* 举个栗子，以nginx为实验对象，以暴露http的方式给cloudfoundry
+##### Nginx测试用例
+
+* nginx比较简单，通过dashboard界面将example/nginx.yml上传上去就行了
 ```
 apiVersion: v1
 kind: Service
@@ -148,8 +150,6 @@ spec:
         ports:
         - containerPort: 80
 ```
-##### 执行创建</br>
-./kubectl --kubeconfig=..... create -f /tmp/nginx.yml </br>
 ##### 查看dashboard,观察nginx服务的标签</br>
 ![kubo-gl](https://github.com/wdxxs2z/ops-kubops/blob/master/ops/12.png)</br>
 ##### 查看路由注册组件,观察日志</br>
@@ -158,6 +158,106 @@ spec:
 ![kubo-gh](https://github.com/wdxxs2z/ops-kubops/blob/master/ops/14.png)</br>
 ##### 查看gorouter路由表</br>
 ![kubo-gf](https://github.com/wdxxs2z/ops-kubops/blob/master/ops/15.JPG)</br>
+
+##### Grafana监控dashboard
+
+* 目前平台不提供监控的dashboard，所以需要自己创建，同样将grafana暴露给gorouter，通过界面将example/grafana.yml上传上去就行了
+```
+metadata:
+  labels:
+    kubernetes.io/cluster-service: 'true'
+    kubernetes.io/name: monitoring-grafana
+    # Add http route sync label to call cloudfoundry route api.
+    http-route-sync: grafana
+  name: monitoring-grafana
+  namespace: kube-system
+spec:
+  ports:
+  - port: 80
+    targetPort: 3000
+  selector:
+    k8s-app: grafana
+  # target the type is nodeport to tell gorouter.
+  type: NodePort
+```
+
+##### Tomcat应用
+
+* 在label中添加tomcat-example，通过界面将example/tomcat.yml上传上去就行了
+```
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    name: tomcat-example
+    http-route-sync: tomcat-example
+  name: tomcat-example
+spec:
+  ports:
+    - port: 8080
+  selector:
+    app: tomcat-example
+  type: NodePort
+```
+
+##### Mysql带持久化存储
+
+* 举一个TCP路由的例子，mysql的部署复杂一些，需要提前定义pv和pvc，最后将tcp标签暴露给tcp router
+
+1. 创建一个PV，example/local-volume.yml
+```
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: local-pv-1
+  labels:
+    type: local
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /tmp/data/pv-1
+```
+
+2. 创建mysql对应的PVC，example/pvc-mysql.yml
+```
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-pv-claim
+  labels:
+    app: wordpress
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+```
+
+3. 创建mysql的replication和svc，example/mysql-deployment.yml，需要注意这里在服务里指定的是tcp-route-sync,端口为34569，持久化卷绑定的是/data目录
+```
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql
+  labels:
+    app: mysql
+    tcp-route-sync: '34569'
+
+volumeMounts:
+- name: mysql-persistent-storage
+  mountPath: /data
+      
+volumes:
+- name: mysql-persistent-storage
+  persistentVolumeClaim:
+    claimName: mysql-pv-claim
+```
+
+4. 通过mysql客户端程序直接访问tcp router的IP，端口34569，用户名admin，密码xxx，就能访问数据库了。
 
 ##### 后续
 1. 官方会持续集成日志，对接cf的metron agent
