@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    name: tomcat-example
+    http-route-sync: tomcat-example
+    #tcp-route-sync: '34567' #tcp 则指定端口 -> tcp router
+  name: tomcat-example
+spec:
+  ports:
+    - port: 8080
+  selector:
+    app: tomcat-example
+  type: NodePort
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: tomcat-example
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: tomcat-example
+    spec:
+      containers:
+      - name: tomcat-example
+        image: tutum/tomcat:latest
+        ports:
+        - containerPort: 8080

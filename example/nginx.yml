@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    name: nginx
+    http-route-sync: nginx  #http 则指定host名 -> gorouter
+    #tcp-route-sync: '34567' #tcp 则指定端口 -> tcp router
+  name: nginx
+spec:
+  ports:
+    - port: 80
+  selector:
+    app: nginx
+  #必须指定服务端口类型为`nodeport`
+  type: NodePort
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: nginx
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: hub.c.163.com/library/nginx:latest
+        ports:
+        - containerPort: 80
