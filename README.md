@@ -151,12 +151,19 @@ spec:
         - containerPort: 80
 ```
 * 查看dashboard,观察nginx服务的标签</br>
+
 ![kubo-gl](https://github.com/wdxxs2z/ops-kubops/blob/master/ops/12.png)</br>
+
 * 查看路由注册组件,观察日志</br>
+
 ![kubo-gk](https://github.com/wdxxs2z/ops-kubops/blob/master/ops/13.png)</br>
+
 * 直接访问应用域名,一切正常</br>
+
 ![kubo-gh](https://github.com/wdxxs2z/ops-kubops/blob/master/ops/14.png)</br>
+
 * 查看gorouter路由表</br>
+
 ![kubo-gf](https://github.com/wdxxs2z/ops-kubops/blob/master/ops/15.JPG)</br>
 
 ##### Grafana监控dashboard
@@ -256,9 +263,9 @@ volumes:
   persistentVolumeClaim:
     claimName: mysql-pv-claim
 ```
-![kubo-mysql](https://github.com/wdxxs2z/ops-kubops/blob/master/ops/mysql.JPG)</br>
 
 4. 通过mysql客户端程序直接访问tcp router的IP，端口34569，用户名admin，密码xxx，就能访问数据库了。
+![kubo-mysql](https://github.com/wdxxs2z/ops-kubops/blob/master/ops/mysql.JPG)</br>
 
 ##### 后续
 1. 官方会持续集成日志，对接cf的metron agent
