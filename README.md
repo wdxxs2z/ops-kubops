@@ -112,7 +112,7 @@ kubectl --kubeconfig=/var/vcap/jobs/kubeconfig/config/kubeconfig create -f /tmp/
 
 * CTX：持续对k8s所有namespaces内的services进行扫描
 
-#### 用例
+#### 关于POC用例
 
 ##### Nginx测试用例
 
@@ -150,13 +150,13 @@ spec:
         ports:
         - containerPort: 80
 ```
-##### 查看dashboard,观察nginx服务的标签</br>
+* 查看dashboard,观察nginx服务的标签</br>
 ![kubo-gl](https://github.com/wdxxs2z/ops-kubops/blob/master/ops/12.png)</br>
-##### 查看路由注册组件,观察日志</br>
+* 查看路由注册组件,观察日志</br>
 ![kubo-gk](https://github.com/wdxxs2z/ops-kubops/blob/master/ops/13.png)</br>
-##### 直接访问应用域名,一切正常</br>
+* 直接访问应用域名,一切正常</br>
 ![kubo-gh](https://github.com/wdxxs2z/ops-kubops/blob/master/ops/14.png)</br>
-##### 查看gorouter路由表</br>
+* 查看gorouter路由表</br>
 ![kubo-gf](https://github.com/wdxxs2z/ops-kubops/blob/master/ops/15.JPG)</br>
 
 ##### Grafana监控dashboard
