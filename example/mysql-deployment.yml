@@ -35,7 +35,7 @@ spec:
         - name: MYSQL_USERNAME
           value: admin
         - name: MYSQL_PASSWORD
-          value: 123.com
+          value: mypassword
         - name: MYSQL_DBNAME
           value: mydb
         ports:
