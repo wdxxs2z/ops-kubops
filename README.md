@@ -32,6 +32,7 @@ https://github.com/pivotal-cf-experimental/kubo-release
 ```
 
 4.将介质上传到PCF上，准备部署
+
 ![ops manager-upload](https://github.com/wdxxs2z/ops-kubops/blob/master/ops/o.JPG)
 
 5.配置kubernetes</br>
@@ -41,6 +42,7 @@ https://github.com/pivotal-cf-experimental/kubo-release
 * 如果平台有自己的私有镜像库也可填写自己的镜像库</br>
 * 其它可配置参数目前没有释放，如果需要可以自己定制模板，将参数释放出来</br>
 * 支持多AZ部署</br>
+
 ![ops manager-opts](https://github.com/wdxxs2z/ops-kubops/blob/master/ops/3.JPG)
 
 6.kubernetes的主要组件说明</br>
@@ -56,6 +58,7 @@ https://github.com/pivotal-cf-experimental/kubo-release
 系统服务在此errand统一部署，如ui,dns,heapster,influxdb等，目前这个版本需要自己封装errand，不支持errand模式(已经提交了issue),所以在官方的基础上，会稍微改变一下部署策略，添加对其的支持。</br>
 
 8.配置组件资源列表</br>
+
 ![ops manager-resource](https://github.com/wdxxs2z/ops-kubops/blob/master/ops/4.JPG)
 
 9.使用kubectl操作kubernetes集群</br>
@@ -72,6 +75,7 @@ kubectl --kubeconfig=/var/vcap/jobs/kubeconfig/config/kubeconfig describe svc --
 kubectl --kubeconfig=/var/vcap/jobs/kubeconfig/config/kubeconfig create -f /tmp/nginx.yml
 ```
 通过nodeip:31000访问dashboard
+
 ![kubo-ui](https://github.com/wdxxs2z/ops-kubops/blob/master/ops/7.JPG)
 
 10.部署grafana监控服务,此块服务也可直接放到errand里执行</br>
@@ -79,12 +83,19 @@ kubectl --kubeconfig=/var/vcap/jobs/kubeconfig/config/kubeconfig create -f /tmp/
 ./kubectl --kubeconfig=/var/vcap/jobs/kubeconfig/config/kcreate -f /tmp/grafana.yml
 ```
 * 查看grafana详情</br>
+
 ![kubo-gs](https://github.com/wdxxs2z/ops-kubops/blob/master/ops/8.JPG)</br>
+
 * 进入节点查看监控指标.</br>
+
 ![kubo-ga](https://github.com/wdxxs2z/ops-kubops/blob/master/ops/9.JPG)</br>
+
 * 集群指标.</br>
+
 ![kubo-gb](https://github.com/wdxxs2z/ops-kubops/blob/master/ops/10.JPG)</br>
+
 * pod指标.</br>
+
 ![kubo-gc](https://github.com/wdxxs2z/ops-kubops/blob/master/ops/11.JPG)</br>
 
 #### 关于powerdns
@@ -265,6 +276,7 @@ volumes:
 ```
 
 4. 通过mysql客户端程序直接访问tcp router的IP，端口34569，用户名admin，密码xxx，就能访问数据库了。
+
 ![kubo-mysql](https://github.com/wdxxs2z/ops-kubops/blob/master/ops/mysql.JPG)</br>
 
 ##### 后续
