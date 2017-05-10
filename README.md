@@ -256,6 +256,7 @@ volumes:
   persistentVolumeClaim:
     claimName: mysql-pv-claim
 ```
+![kubo-mysql](https://github.com/wdxxs2z/ops-kubops/blob/master/ops/mysql.JPG)</br>
 
 4. 通过mysql客户端程序直接访问tcp router的IP，端口34569，用户名admin，密码xxx，就能访问数据库了。
 
